@@ -1,13 +1,15 @@
 ﻿
+using System;
+using System.Security.Cryptography;
+
 var a1 = new string[] { "arp", "live", "strong" };
 var a2 = new string[] { "lively", "alive", "harp", "sharp", "armstrong" };
 var one = new int[] { 2, 4, 4, 5, 4 };
 
-Console.WriteLine(Persistence(999));
+Console.WriteLine(Decrypt("hskt svr neetn!Ti aai eyitrsig", 1));
 
 
 
-Console.WriteLine(Calculator(".... // .."));
 //Greed is Good 5KYU
 //https://www.codewars.com/kata/5270d0d18625160ada0000e4/train/csharp
 int Score(int[] dice)
@@ -75,7 +77,46 @@ int Score(int[] dice)
     return score;
 }
 
-//Which are in?
+//Simple Encryption #1 - Alternating Split
+//https://www.codewars.com/kata/57814d79a56c88e3e0000786/csharp
+string Encrypt(string text, int n)
+{
+    if (string.IsNullOrEmpty(text) || n < 1) return text;
+    var stringEven = new string("");
+    var stringOdd = new string("");
+    for (int i = 0; i < n; i++)
+    {
+        var even = text.Where((item, index) => index % 2 == 0).ToArray(); ;
+        var odd = text.Where((item, index) => index % 2 != 0).ToArray(); ;
+        stringEven = new string(even);
+        stringOdd = new string(odd);
+        text = stringOdd + stringEven;
+    }
+    return text;
+}
+string Decrypt(string text, int n)
+{
+    if (string.IsNullOrEmpty(text) || n < 1) return text;
+    var stringEven = new string("");
+    var stringOdd = new string("");
+    for (int i = 0; i < n; i++)
+    {
+        var lastOdd = text.Take(text.Length / 2).ToArray();
+        var lastEven = text.Skip(text.Length / 2).ToArray();
+        var testString = "";
+        for (int k = 0; k < lastEven.Length; k++)
+        {
+            testString += lastEven[k];
+            if (k == lastEven.Length - 1 && (lastEven.Length != lastOdd.Length)) continue;
+                
+            testString+= lastOdd[k];
+        }
+        text = testString;
+    }
+    return text;
+}
+
+//Which are in? 5kyu
 //https://www.codewars.com/kata/550554fd08b86f84fe000a58/train/csharp
 static string[] InArray(string[] array1, string[] array2)
 {
@@ -95,7 +136,7 @@ static int Persistence(long n)
     {
         numbers = numbers.Select(i => int.Parse(i.ToString())).Aggregate((x, y) => x * y).ToString().ToArray();
         res++;
-    } while (numbers.Length != 1) ;
+    } while (numbers.Length != 1);
     return res;
 
 
