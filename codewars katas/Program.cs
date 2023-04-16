@@ -3,7 +3,7 @@ var a1 = new string[] { "arp", "live", "strong" };
 var a2 = new string[] { "lively", "alive", "harp", "sharp", "armstrong" };
 var one = new int[] { 2, 4, 4, 5, 4 };
 
-Console.WriteLine(InArray(a1, a2));
+Console.WriteLine(Persistence(999));
 
 
 
@@ -18,59 +18,59 @@ int Score(int[] dice)
     {
 
         var c = t.Count();
-            do
+        do
+        {
+            if (c >= 3)
             {
-                if (c >= 3)
-                {
 
-                    switch (t.Key)
-                    {
-                        case 1:
-                            score += 1000;
-                            c -= 3;
-                            break;
-                        case 2:
-                            score += 200;
-                            c -= 3;
-                            break;
-                        case 3:
-                            score += 300;
-                            c -= 3;
-                            break;
-                        case 4:
-                            score += 400;
-                            c -= 3;
-                            break;
-                        case 5:
-                            score += 500;
-                            c -= 3;
-                            break;
-                        case 6:
-                            score += 600;
-                            c -= 3;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else if(t.Key == 5 || t.Key == 1)
+                switch (t.Key)
                 {
-                    if (t.Key == 1 && c > 0)
-                    {
-                        score += 100;
-                        c -= 1;
-                    }
-                    if (t.Key == 5 && c > 0)
-                    {
-                        score += 50;
-                        c -= 1;
-                    }
+                    case 1:
+                        score += 1000;
+                        c -= 3;
+                        break;
+                    case 2:
+                        score += 200;
+                        c -= 3;
+                        break;
+                    case 3:
+                        score += 300;
+                        c -= 3;
+                        break;
+                    case 4:
+                        score += 400;
+                        c -= 3;
+                        break;
+                    case 5:
+                        score += 500;
+                        c -= 3;
+                        break;
+                    case 6:
+                        score += 600;
+                        c -= 3;
+                        break;
+                    default:
+                        break;
                 }
+            }
+            else if (t.Key == 5 || t.Key == 1)
+            {
+                if (t.Key == 1 && c > 0)
+                {
+                    score += 100;
+                    c -= 1;
+                }
+                if (t.Key == 5 && c > 0)
+                {
+                    score += 50;
+                    c -= 1;
+                }
+            }
             else
             {
                 c = 0;
             }
-            } while (c != 0);
+        } while (c != 0);
     }
     return score;
 }
@@ -83,6 +83,24 @@ static string[] InArray(string[] array1, string[] array2)
 }
 //Count the smiley faces! 6kyu
 //https://www.codewars.com/kata/583203e6eb35d7980400002a/train/csharp
+
+//Persistent Bugger. 6kyu
+//https://www.codewars.com/kata/55bf01e5a717a0d57e0000ec/train/csharp
+static int Persistence(long n)
+{
+    if (n.ToString().Length == 1) return 0;
+    var res = 0;
+    var numbers = n.ToString().ToArray();
+    do
+    {
+        numbers = numbers.Select(i => int.Parse(i.ToString())).Aggregate((x, y) => x * y).ToString().ToArray();
+        res++;
+    } while (numbers.Length != 1) ;
+    return res;
+
+
+}
+
 static int CountSmileys(string[] smileys)
 {
     if (!smileys.Any()) return 0;
