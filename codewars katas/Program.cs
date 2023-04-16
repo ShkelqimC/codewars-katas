@@ -2,13 +2,25 @@
 
 
 
+var one = new List<int>() { 1, 1, 1, 2, 1, 1, 1 };
+
+Console.WriteLine(GetUnique(one));
 
 
 
+Console.WriteLine(Calculator(".... // .."));
+//Find the unique number 6kyu
+//https://www.codewars.com/kata/585d7d5adb20cf33cb000235
+int GetUnique(IEnumerable<int> numbers)
+{
+    foreach (var item in numbers)
+    {
+        var count = numbers.Count(x => x == item);
+        if (count == 1) return item;
 
-
-
-Console.WriteLine(Remove("Hi! Hi!! Hi!"));
+    }
+    return 1;
+}
 
 //Create Phone Number 6kyu
 //https://www.codewars.com/kata/525f50e3b73515a6db000b83/train/csharp 
@@ -19,7 +31,58 @@ string CreatePhoneNumber(int[] numbers)
     return $"({numbers[0]}{numbers[1]}{numbers[2]}) {numbers[3]}{numbers[4]}{numbers[5]}-{numbers[6]}{numbers[7]}{numbers[8]}";
 }
 
-//Exclamation marks series #7: Remove words from the sentence if it contains one exclamation mark
+//Dot Calculator
+//https://www.codewars.com/kata/6071ef9cbe6ec400228d9531/train/csharp
+string Calculator(string txt)
+{
+    string[] symbols = new[] { "+", "-", "*", "/" };
+    string sym = "";
+    foreach (var s in symbols)
+     {
+        var index = txt.IndexOf(s);
+
+        if (index >= 0) sym = s;
+    }
+    var split = txt.Split(sym);
+    var count = 0;
+    switch (sym)
+    {
+        case "+":
+            count = split[0].Length - 1 + split[1].Length - 1;
+            break;
+        case "-":
+            count = (split[0].Length - 1) - (split[1].Length - 1);
+            break;
+            case "*":
+            count = (split[0].Length - 1) * (split[1].Length - 1);
+            break;
+            case "/":
+            count = (split[0].Length - 1) / (split[2].Length - 1);
+            break;
+        default:
+            break;
+    }
+    var res = "";
+    if(count > 0)
+    {
+
+    for (int i = 0; i < count; i++)
+    {
+        res += ".";
+    }
+    }
+
+    return res;
+}
+
+//Power of two 7kyu
+//https://www.codewars.com/kata/534d0a229345375d520006a0/train/csharp
+static bool PowerOfTwo(int n)
+{
+    return (n & (n - 1)) == 0;
+}
+
+//Exclamation marks series #7: Remove words from the sentence if it contains one exclamation mark 7kyu
 //https://www.codewars.com/kata/57fafb6d2b5314c839000195/train/csharp
 static string Remove(string s)
 {
