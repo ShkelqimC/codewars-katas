@@ -1,12 +1,9 @@
 ﻿
-
-
-
-using System.Security.Cryptography.X509Certificates;
-
+var a1 = new string[] { "arp", "live", "strong" };
+var a2 = new string[] { "lively", "alive", "harp", "sharp", "armstrong" };
 var one = new int[] { 2, 4, 4, 5, 4 };
 
-Console.WriteLine(Score(one));
+Console.WriteLine(InArray(a1, a2));
 
 
 
@@ -55,7 +52,6 @@ int Score(int[] dice)
                         default:
                             break;
                     }
-
                 }
                 else if(t.Key == 5 || t.Key == 1)
                 {
@@ -63,11 +59,9 @@ int Score(int[] dice)
                     {
                         score += 100;
                         c -= 1;
-
                     }
                     if (t.Key == 5 && c > 0)
                     {
-
                         score += 50;
                         c -= 1;
                     }
@@ -76,15 +70,16 @@ int Score(int[] dice)
             {
                 c = 0;
             }
-
             } while (c != 0);
-
-
-        
-
     }
-
     return score;
+}
+
+//Which are in?
+//https://www.codewars.com/kata/550554fd08b86f84fe000a58/train/csharp
+static string[] InArray(string[] array1, string[] array2)
+{
+    return array1.Where(i => array2.Any(k => k.Contains(i))).OrderBy(x => x).ToArray();
 }
 //Count the smiley faces! 6kyu
 //https://www.codewars.com/kata/583203e6eb35d7980400002a/train/csharp
