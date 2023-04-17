@@ -1,12 +1,7 @@
 ﻿
-using System;
-using System.Security.Cryptography;
 
-var a1 = new string[] { "arp", "live", "strong" };
-var a2 = new string[] { "lively", "alive", "harp", "sharp", "armstrong" };
-var one = new int[] { 2, 4, 4, 5, 4 };
 
-Console.WriteLine(Decrypt("hskt svr neetn!Ti aai eyitrsig", 1));
+Console.WriteLine(QueueTime(new int[] { 2, 2, 3, 3, 4, 4 }, 2));
 
 
 
@@ -77,7 +72,33 @@ int Score(int[] dice)
     return score;
 }
 
-//Simple Encryption #1 - Alternating Split
+//The Supermarket Queue 6kyu
+//https://www.codewars.com/kata/57b06f90e298a7b53d000a86/train/csharp
+static long QueueTime(int[] customers, int n)
+{
+    if (n == 1) return customers.Sum();
+
+    if (n > customers.Length) return customers.Max();
+
+    int[] tills = new int[n];
+
+    foreach (var customer in customers)
+    {
+        var bp = 1;
+        var minIndex = Array.IndexOf(tills, tills.Min());
+        tills[minIndex] += customer;
+
+    }
+
+    var bap = 1;
+
+
+    return tills.Max(); ;
+}
+
+
+
+//Simple Encryption #1 - Alternating Split 6kyu
 //https://www.codewars.com/kata/57814d79a56c88e3e0000786/csharp
 string Encrypt(string text, int n)
 {
@@ -108,8 +129,8 @@ string Decrypt(string text, int n)
         {
             testString += lastEven[k];
             if (k == lastEven.Length - 1 && (lastEven.Length != lastOdd.Length)) continue;
-                
-            testString+= lastOdd[k];
+
+            testString += lastOdd[k];
         }
         text = testString;
     }
